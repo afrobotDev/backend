@@ -4,28 +4,31 @@ const port = 3000
 
 app.use(express.json())
 
-let data = {
-  "name": "Kyle"
-};
+let data = {}
 
 app.get('/', (req, res) => {
-  res.send(`
-  <body style="background: pink; color: blue;">
-  <h1>Data</h1>
-      <p>${JSON.stringify(data)}</p>
-  </body>
-  `)
-})
+  res.send('Hello World!');
+});
 
-app.get('/api/data', (req, res) => {
+app.get('/users', (req, res) => {
   res.send(data)
-})
+});
 
-app.post('/api/data', (req, res) => {
+app.post('/users', (req, res) => {
   data = req.body
   res.status(201).send(data)
-})
+});
+
+app.put('/users', (req, res) => {
+  data = req.body
+  res.status(200).send(data);
+});
+
+app.delete('/users', (req, res) => {
+  res.status(204);
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
-})
+});
