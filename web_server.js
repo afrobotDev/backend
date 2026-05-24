@@ -25,7 +25,7 @@ app.put('/users', (req, res) => {
 });
 
 app.delete('/users', (req, res) => {
-  res.status(204);
+  res.sendStatus(204);
 });
 
 
