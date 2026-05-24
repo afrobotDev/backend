@@ -49,8 +49,12 @@ app.put('/users', (req, res) => {
     return res.status(400).send({ error: 'Expected a JSON object' })
   }
   for (const [key, value] of Object.entries(req.body)) {
-    if (!data[key]) data[key] = []
-    data[key].push(value)
+    if (!data[key] || data[key].length === 0) {
+      if (!data[key]) data[key] = []
+      data[key].push(value)
+    } else {
+      data[key][data[key].length - 1] = value
+    }
   }
   res.status(200).send(data);
 });
