@@ -11,11 +11,13 @@ app.get('/', (req, res) => {
   res.send(`
     <body style="background: pink; color: blue;">
     <h1>Images</h1>
-    <img src="/image.png" alt="Image" />
-    <img src="/image.jpg" alt="Image" />
-    <img src="/image.jpeg" alt="Image" />
-    <img src="/image.gif" alt="Image" />
-    <img src="/image.webp" alt="Image" />
+    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <img src="/image.png" style="max-width: 300px; max-height: 300px;" />
+    <img src="/image.jpg" style="max-width: 300px; max-height: 300px;" />
+    <img src="/image.jpeg" style="max-width: 300px; max-height: 300px;" />
+    <img src="/image.gif" style="max-width: 300px; max-height: 300px;" />
+    <img src="/image.webp" style="max-width: 300px; max-height: 300px;" />
+    </div>
     </body>
   `)
 });
