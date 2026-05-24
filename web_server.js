@@ -22,7 +22,8 @@ app.get('/api/data', (req, res) => {
 })
 
 app.post('/api/data', (req, res) => {
-  const newEntry = req.body
+  data = req.body
+  res.status(201).send(data)
 })
 
 app.listen(port, () => {
