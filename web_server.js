@@ -50,6 +50,7 @@ app.put('/users', (req, res) => {
 });
 
 app.delete('/users', (req, res) => {
+  data = {};
   res.sendStatus(204);
 });
 
