@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 
 app.use(express.json());
-app.use(express.static('/Home/Downloads'));
+app.use(express.static('/home/thoughtful-dev/Downloads'));
 
 let data = {}
 
