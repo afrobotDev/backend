@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 app.get('/users', (req, res) => {
   res.send(`
     <body style="background: pink; color: blue;">
-    <h1>Users List Page</h1>
+    <h1>Users List</h1>
     <p>${JSON.stringify(data)}</p>
     <a href="/">back to home</a>
     </body>
