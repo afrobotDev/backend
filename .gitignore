@@ -1,5 +1,6 @@
 node_modules/
 .env
+node_with_sqlite/.env
 *.log
 dist/
 .DS_Store
