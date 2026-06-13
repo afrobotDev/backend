@@ -33,3 +33,5 @@ router.post("/auth/register", (req, res) => {
     res.sendStatus(503);
   }
 });
+
+export default router;
