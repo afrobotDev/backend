@@ -23,7 +23,7 @@ router.post("/auth/register", (req, res) => {
     insertTodo.run(result.lastInsertRowid, defaultTodo);
 
     const token = jwt.sign(
-      { id: resutl.lastInsertRowid },
+      { id: result.lastInsertRowid },
       process.env.JWT_SECRET,
       { expiresIn: "24h" },
     );
