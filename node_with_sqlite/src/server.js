@@ -1,7 +1,7 @@
 import express from "express";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import authRoute from "routes/auth_route.js";
+import authRoute from "./routes/auth_route.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
