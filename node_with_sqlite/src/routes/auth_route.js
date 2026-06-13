@@ -25,7 +25,7 @@ router.post("/auth/register", (req, res) => {
     const token = jwt.sign(
       { id: result.lastInsertRowid },
       process.env.JWT_SECRET,
-      { expiresIn: "24h" },
+      { expiresIn: "24h" }
     );
     res.json({ token });
   } catch (err) {
@@ -35,7 +35,7 @@ router.post("/auth/register", (req, res) => {
 });
 
 // Login a user
-router.post("auth/login", (req, res) => {
+router.post("/auth/login", (req, res) => {
   const { username, password } = req.body;
   try {
     const getUser = db.prepare(`SELECT * FROM users WHERE username = ?`);
