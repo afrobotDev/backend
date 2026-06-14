@@ -251,7 +251,7 @@
   async function fetchTodos() {
     isLoading = true
     const response = await fetch(apiBase + 'todos', {
-      headers: {'Authorization': token}
+      headers: {'Authorization': `Bearer ${token}`}
     })
     const todosData = await response.json()
     todos = todosData
