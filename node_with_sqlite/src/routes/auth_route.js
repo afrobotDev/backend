@@ -41,12 +41,12 @@ router.post("/auth/login", (req, res) => {
     const getUser = db.prepare(`SELECT * FROM users WHERE username = ?`);
     const user = getUser.get(username);
     if (!user) {
-      return res.status(404).send({ message: "user not found" });
+      return res.status(401).json({ message: "invalid credential" });
     }
 
     const passwordIsValid = bcrypt.compareSync(password, user.password);
     if (!passwordIsValid) {
-      return res.status(401).send({ message: "invalid credential" });
+      return res.status(401).json({ message: "invalid credential" });
     }
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
