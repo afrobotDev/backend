@@ -218,13 +218,10 @@
         token = data.token
         localStorage.setItem('token', token)
 
-        // authenicating into loading
         authBtn.innerText = 'Loading...'
 
-        // fetch todos
-        await fetchTodos()
-
-        // show dashboard
+        const success = await fetchTodos()
+        if (!success) throw Error('Failed to load todos')
         showDashboard()
       } else {
         throw Error('❌ Failed to authenticate...')
@@ -253,10 +250,15 @@
     const response = await fetch(apiBase + 'todos', {
       headers: {'Authorization': `Bearer ${token}`}
     })
+    if (!response.ok) {
+      isLoading = false
+      return false
+    }
     const todosData = await response.json()
     todos = todosData
     isLoading = false
     renderTodos()
+    return true
   }
 
   async function updateTodo(index) {
@@ -265,7 +267,7 @@
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': token
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({task: todos.find(val => val.id === index).task, completed: 1})
     })
@@ -277,7 +279,7 @@
     await fetch(apiBase + 'todos' + '/' + index, {
       method: 'DELETE',
       headers: {
-        'Authorization': token
+        'Authorization': `Bearer ${token}`
       },
     })
     fetchTodos()
@@ -294,7 +296,7 @@
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': token
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({task})
     })
@@ -307,15 +309,16 @@
 
   // load page and read local storage for key
 
-  // default to login screen
-
-  // if is authenticated, show todo app
   if (token) {
-    async function run() {
-      await fetchTodos()
-      showDashboard()
-    }
-    run()
+    (async () => {
+      const success = await fetchTodos()
+      if (success) {
+        showDashboard()
+      } else {
+        localStorage.removeItem('token')
+        token = null
+      }
+    })()
   }
 </script>
 
