@@ -24,5 +24,5 @@ app.listen(port, () => {
 });
 
 // Routes
-app.use("auth", authRoute);
-app.use("todos", authMiddleware, todoRoute);
+app.use("/auth", authRoute);
+app.use("/todos", authMiddleware, todoRoute);
