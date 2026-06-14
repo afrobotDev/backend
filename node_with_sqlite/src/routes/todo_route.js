@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Read all todos for the logged-in user
 router.get("/", (req, res) => {
-  const getTodos = db.prepare(`SELECT * FROM todos WHERE username = ?`);
+  const getTodos = db.prepare(`SELECT * FROM todos WHERE user_id = ?`);
   const todos = getTodos.all(req.userId);
   res.json(todos);
 });
@@ -14,10 +14,10 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const { task } = req.body;
   const insertTodo = db.prepare(
-    `INSER INTO todos (user_id, task) VALUES (?, ?)`,
+    `INSERT INTO todos (user_id, task) VALUES (?, ?)`,
   );
   const result = insertTodo.run(req.userId, task);
-  res.json({ id: result.lastInsertRowId, task, completed: 0 });
+  res.json({ id: result.lastInsertRowid, task, completed: 0 });
 });
 
 // Update todos
@@ -27,7 +27,7 @@ router.put("/:id", (req, res) => {
   const userId = req.userId;
 
   const updateTodo = db.prepare(
-    `UPDATE todos SET completed = ? WHERE id = ? AND userId = ?`,
+    `UPDATE todos SET completed = ? WHERE id = ? AND user_id = ?`,
   );
   updateTodo.run(completed, id, userId);
   res.json({ message: "Todo completed" });
@@ -39,7 +39,7 @@ router.delete("/:id", (req, res) => {
   const userId = req.userId;
 
   const deleteTodo = db.prepare(
-    `DELETE FROM todos WHERE id = ? AND userId = ?`,
+    `DELETE FROM todos WHERE id = ? AND user_id = ?`,
   );
   deleteTodo.run(id, userId);
   res.json({ message: "Todo deleted" });
