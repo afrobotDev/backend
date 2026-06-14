@@ -6,7 +6,7 @@ import db from "../database.js";
 const router = express.Router();
 
 // Register a new user
-router.post("/auth/register", (req, res) => {
+router.post("/register", (req, res) => {
   const { username, password } = req.body;
   const hashedPassword = bcrypt.hashSync(password, 8);
 
@@ -35,7 +35,7 @@ router.post("/auth/register", (req, res) => {
 });
 
 // Login a user
-router.post("/auth/login", (req, res) => {
+router.post("/login", (req, res) => {
   const { username, password } = req.body;
   try {
     const getUser = db.prepare(`SELECT * FROM users WHERE username = ?`);
