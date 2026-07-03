@@ -38,11 +38,13 @@ router.post("/register", async (req, res) => {
 });
 
 // Login a user
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
-    const getUser = db.prepare(`SELECT * FROM users WHERE username = ?`);
-    const user = getUser.get(username);
+    const user = await prisma.user.findUnique({
+      where: { username: username },
+    });
+
     if (!user) {
       return res.status(401).json({ message: "invalid credential" });
     }
